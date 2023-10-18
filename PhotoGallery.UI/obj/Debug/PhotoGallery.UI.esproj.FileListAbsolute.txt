@@ -1,0 +1,2 @@
+E:\sharp\TestTask\PhotoGallery.UI\obj\Debug\PhotoGallery.UI.esproj.SuggestedBindingRedirects.cache
+E:\sharp\TestTask\PhotoGallery.UI\obj\Debug\PhotoGallery.UI.esproj.CoreCompileInputs.cache

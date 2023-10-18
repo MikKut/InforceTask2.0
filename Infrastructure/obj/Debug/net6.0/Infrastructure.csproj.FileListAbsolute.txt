@@ -1,0 +1,12 @@
+E:\sharp\TestTask\Infrastructure\bin\Debug\net6.0\Infrastructure.deps.json
+E:\sharp\TestTask\Infrastructure\bin\Debug\net6.0\Infrastructure.dll
+E:\sharp\TestTask\Infrastructure\bin\Debug\net6.0\Infrastructure.pdb
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.csproj.AssemblyReference.cache
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.AssemblyInfoInputs.cache
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.AssemblyInfo.cs
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.csproj.CoreCompileInputs.cache
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.dll
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\refint\Infrastructure.dll
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\Infrastructure.pdb
+E:\sharp\TestTask\Infrastructure\obj\Debug\net6.0\ref\Infrastructure.dll
