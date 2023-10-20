@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhotoGallery.Api.Host.Data.Authorization;
-using PhotoGallery.Api.Host.Services;
+using PhotoGallery.Api.Host.Services.Interfaces;
 using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Requests;
 using PhotoGallery.Api.Models.Responses;
@@ -80,7 +80,7 @@ namespace PhotoGallery.Api.Host.Controllers
         {
             try
             {
-                var images = await _albumService.GetPaginatedImagesAsync(request.PageSize, request.PageIndex, request.Album);
+                var images = await _albumService.GetPaginatedImagesAsync(request.PageSize, request.PageIndex, request.AlbumId);
                 return Ok(images);
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace PhotoGallery.Api.Host.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(PaginatedItemsResponse<AlbumDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PaginatedItemsResponse<AlbumWithImageDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Albums(PaginatedAlbumRequest request)
         {
             try
@@ -108,11 +108,11 @@ namespace PhotoGallery.Api.Host.Controllers
         [HttpPost]
         [Authorize(Policy = AuthPolicy.UserPolicy)]
         [ProducesResponseType(typeof(IEnumerable<AlbumWithImageDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetUsersAlbumsWithFirstImage(string jwtToken)
+        public async Task<IActionResult> GetUsersAlbumsWithFirstImage()
         {
             try
             {
-                var albums = await _albumService.GetUsersAlbumsWithFirstImageAsync(jwtToken);
+                var albums = await _albumService.GetUsersAlbumsWithFirstImageAsync(HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", ""));
                 return Ok(albums);
             }
             catch (Exception ex)

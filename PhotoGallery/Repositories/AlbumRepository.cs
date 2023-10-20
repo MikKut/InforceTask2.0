@@ -6,6 +6,7 @@ using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Entities;
 using PhotoGallery.Api.Models.Requests;
 using Microsoft.EntityFrameworkCore;
+using PhotoGallery.Api.Host.Repositories.Interfaces;
 
 namespace PhotoGallery.Api.Host.Repositories
 {
@@ -21,26 +22,6 @@ namespace PhotoGallery.Api.Host.Repositories
             _dbContext = dbContextWrapper.DbContext;
             _logger = logger;
         }
-
-        public async Task<IEnumerable<Album>> GetAlbumsAsync()
-        {
-            try
-            {
-                var searchedAlbums = await _dbContext.Albums.ToListAsync();
-                if (!searchedAlbums.Any())
-                {
-                    throw new BusinessException("There is no any alnums");
-                }
-
-                return searchedAlbums;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while getting albums.");
-                throw;
-            }
-        }
-
         public async Task<IEnumerable<Album>> GetAlbumsByUserWithImagesAsync(int userId, int quantityOfImages)
         {
             try 
@@ -70,12 +51,10 @@ namespace PhotoGallery.Api.Host.Repositories
             };
         }
 
-        public async Task<PaginatedItems<Image>> GetImagesByPageAsync(int pageIndex, int pageSize, AlbumDto album)
+        public async Task<PaginatedItems<Image>> GetImagesByPageAsync(int pageIndex, int pageSize, int albumId)
         {
             try
             {
-                var albumId = await GetAlbumIdAsync(album);
-
                 long totalItems = await _dbContext.Images
                     .Where(x => x.AlbumId == albumId)
                     .LongCountAsync();
@@ -101,31 +80,11 @@ namespace PhotoGallery.Api.Host.Repositories
             }
         }
 
-        public async Task<int> GetAlbumIdAsync(AlbumDto album)
-        {
-            try
-            {
-                var searchedAlbum = await _dbContext.Albums.SingleOrDefaultAsync(x => x.Title == album.Title && x.Description == album.Description);
-                if (searchedAlbum == null)
-                {
-                    _logger.LogWarning("Album not found: {Title} - {Description}", album.Title, album.Description);
-                    throw new BusinessException("There is no such album");
-                }
-
-                return searchedAlbum.AlbumId;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while getting the album ID.");
-                throw;
-            }
-        }
-
         public async Task AddAlbumAsync(Album addItem)
         {
             try
             {
-                if (await CheckIfAlbumExists(addItem))
+                if (await CheckIfAlbumExists(title: addItem.Title, description: addItem.Description))
                 {
                     _logger.LogWarning("Album already exists: {Title} - {Description}", addItem.Title, addItem.Description);
                     throw new BusinessException("The album already exists");
@@ -146,7 +105,7 @@ namespace PhotoGallery.Api.Host.Repositories
         {
             try
             {
-                if (!await CheckIfAlbumExists(deleteItem))
+                if (!await CheckIfAlbumExists(albumID: deleteItem.AlbumId))
                 {
                     _logger.LogWarning("Album not found for deletion: {Title} - {Description}", deleteItem.Title, deleteItem.Description);
                     throw new BusinessException("The album does not exist");
@@ -188,11 +147,24 @@ namespace PhotoGallery.Api.Host.Repositories
             }
         }
 
-        private async Task<bool> CheckIfAlbumExists(Album album)
+        private async Task<bool> CheckIfAlbumExists(string title, string description)
         {
-            var searchedAlbum = await _dbContext.Albums.SingleOrDefaultAsync(x => x.Title == album.Title && x.Description == album.Description);
+            var searchedAlbum = await _dbContext.Albums.SingleOrDefaultAsync(x => x.Title == title && x.Description == description);
             if (searchedAlbum == null)
             {
+                _logger.LogWarning("Album not found for checking: {Title} - {Description}", title, description);
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> CheckIfAlbumExists(int albumID)
+        {
+            var searchedAlbum = await _dbContext.Albums.SingleOrDefaultAsync(x => x.AlbumId == albumID);
+            if (searchedAlbum == null)
+            {
+                _logger.LogWarning("Album not found for checking: {albumId}", albumID);
                 return false;
             }
 

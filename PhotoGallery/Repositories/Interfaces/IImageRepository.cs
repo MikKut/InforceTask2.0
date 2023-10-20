@@ -1,6 +1,6 @@
 ﻿using PhotoGallery.Api.Models.Entities;
 
-namespace PhotoGallery.Api.Host.Repositories
+namespace PhotoGallery.Api.Host.Repositories.Interfaces
 {
     public interface IImageRepository
     {

@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:7219/api/v1',
-  loginPath: 'https://localhost:7219/api/v1/account/login'
+  loginPath: 'https://localhost:7219/api/v1/account/login',
+  albumPath: 'https://localhost:7219/api/v1/album'
 };
 
 /*

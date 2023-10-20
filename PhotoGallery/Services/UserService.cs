@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PhotoGallery.Api.Host.Data.Authorization;
-using PhotoGallery.Api.Host.Repositories;
+using PhotoGallery.Api.Host.Repositories.Interfaces;
+using PhotoGallery.Api.Host.Services.Interfaces;
 using PhotoGallery.Api.Models.Entities;
 using PhotoGallery.Api.Models.Requests;
 using PhotoGallery.Api.Models.Responses;

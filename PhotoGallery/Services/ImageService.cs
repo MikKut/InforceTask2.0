@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PhotoGallery.Api.Host.Data;
-using PhotoGallery.Api.Host.Repositories;
+using PhotoGallery.Api.Host.Repositories.Interfaces;
+using PhotoGallery.Api.Host.Services.Interfaces;
 using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Entities;
 

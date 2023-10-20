@@ -3,7 +3,8 @@ using Catalog.Host.Data;
 using Infrastructure;
 using PhotoGallery.Api.Host.Data;
 using PhotoGallery.Api.Host.Data.Authorization;
-using PhotoGallery.Api.Host.Repositories;
+using PhotoGallery.Api.Host.Repositories.Interfaces;
+using PhotoGallery.Api.Host.Services.Interfaces;
 using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Entities;
 using PhotoGallery.Api.Models.Requests;
@@ -27,11 +28,6 @@ namespace PhotoGallery.Api.Host.Services
             _mapper = mapper;
             _albumRepository = albumRepository;
             _jwtHandler=jwtHandler;
-        }
-        public async Task<IEnumerable<AlbumDto>> GetAllAlbums()
-        {
-            return (await ExecuteSafeAsync(() => _albumRepository.GetAlbumsAsync())).Select(x => _mapper.Map<AlbumDto>(x));
-
         }
 
         public async Task<IEnumerable<AlbumWithImageDto>> GetUsersAlbumsWithFirstImageAsync(string jwtToken)
@@ -70,11 +66,11 @@ namespace PhotoGallery.Api.Host.Services
             await ExecuteSafeAsync(() => _albumRepository.UpdateAlbumAsync(_mapper.Map<Album>(oldItem), _mapper.Map<Album>(newItem)));
         }
 
-        public async Task<PaginatedItemsResponse<ImageDto>> GetPaginatedImagesAsync(int pageSize, int pageIndex, AlbumDto album)
+        public async Task<PaginatedItemsResponse<ImageDto>> GetPaginatedImagesAsync(int pageSize, int pageIndex, int albumId)
         {
             return await ExecuteSafeAsync(async () =>
             {
-                PaginatedItems<Image> result = await _albumRepository.GetImagesByPageAsync(pageIndex, pageSize, album);
+                PaginatedItems<Image> result = await _albumRepository.GetImagesByPageAsync(pageIndex, pageSize, albumId);
                 return new PaginatedItemsResponse<ImageDto>()
                 {
                     Count = result.TotalCount,
@@ -85,20 +81,19 @@ namespace PhotoGallery.Api.Host.Services
             });
         }
 
-        public async Task<PaginatedItemsResponse<AlbumDto>> GetPaginatedAlbumsAsync(int pageSize, int pageIndex)
+        public async Task<PaginatedItemsResponse<AlbumWithImageDto>> GetPaginatedAlbumsAsync(int pageSize, int pageIndex)
         {
             return await ExecuteSafeAsync(async () =>
             {
                 PaginatedItems<Album> result = await _albumRepository.GetAlbumsByPageAsync(pageIndex, pageSize);
-                return new PaginatedItemsResponse<AlbumDto>()
+                return new PaginatedItemsResponse<AlbumWithImageDto>()
                 {
                     Count = result.TotalCount,
-                    Data = result.Data.Select(s => _mapper.Map<AlbumDto>(s)).ToList(),
+                    Data = result.Data.Select(s => _mapper.Map<AlbumWithImageDto>(s)).ToList(),
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 };
             });
         }
-
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhotoGallery.Api.Host.Data.Authorization;
-using PhotoGallery.Api.Host.Services;
+using PhotoGallery.Api.Host.Services.Interfaces;
 using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Entities;
 using PhotoGallery.Api.Models.Requests;
@@ -51,15 +51,17 @@ namespace PhotoGallery.Api.Host.Controllers
                 await _imageService.UpdateImageLikeAsync(
                     new AlbumDto()
                     {
+                        Id = request.AlbumId,
                         Description = request.AlbumDescription,
                         Title = request.AlbumTitle
                     },
                     new ImageDto()
                     {
+                        Id = request.ImageId,
                         Description= request.ImageDescription,
                         Title = request.ImageTitle,
                         Extension = request.ImageExtension
-                    }, 
+                    },
                     true);
 
                 return Ok();
@@ -80,11 +82,13 @@ namespace PhotoGallery.Api.Host.Controllers
                 await _imageService.UpdateImageLikeAsync(
                     new AlbumDto()
                     {
-                        Description = request.AlbumDescription, 
+                        Id = request.AlbumId,
+                        Description = request.AlbumDescription,
                         Title = request.AlbumTitle
                     },
                     new ImageDto()
                     {
+                        Id = request.ImageId,
                         Description= request.ImageDescription,
                         Title = request.ImageTitle,
                         Extension = request.ImageExtension

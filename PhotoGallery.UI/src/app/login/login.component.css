@@ -4,16 +4,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* Navbar styles */
-.navbar {
-  background-color: #007bff;
-  color: #fff;
-}
-
-  .navbar a {
-    color: #fff;
-  }
-
 /* Login form container */
 .container {
   min-height: 100vh; /* Set a minimum height of the container to 100% viewport height */
@@ -30,15 +20,9 @@ body {
   margin-bottom: 20px;
 }
 
-header, main, footer {
+main {
   width: 100%;
-}
-
-header {
-  background-color: #007bff;
-  color: #fff;
-  padding: 30px;
-  width: 300%;
+  padding: 20px;
 }
 
 form {
@@ -71,17 +55,6 @@ form {
     font-size: 16px; /* Adjust the font size */
   }
 
-/* Footer styles */
-footer {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
 h2 {
   text-align: center;
 }
@@ -99,10 +72,6 @@ h2 {
 /* Input field error styles */
 .alert {
   margin-top: 5px;
-}
-
-main {
-  padding: 20px;
 }
 
 /* Center login form */

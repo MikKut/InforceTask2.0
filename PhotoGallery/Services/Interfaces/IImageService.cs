@@ -1,7 +1,7 @@
 ﻿using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Entities;
 
-namespace PhotoGallery.Api.Host.Services
+namespace PhotoGallery.Api.Host.Services.Interfaces
 {
     public interface IImageService
     {

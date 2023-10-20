@@ -15,6 +15,8 @@ using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using PhotoGallery.Api.Host.Data.Authorization;
+using PhotoGallery.Api.Host.Services.Interfaces;
+using PhotoGallery.Api.Host.Repositories.Interfaces;
 
 var configuration = GetConfiguration();
 var builder = WebApplication.CreateBuilder(args);

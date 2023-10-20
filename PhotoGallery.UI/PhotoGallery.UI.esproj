@@ -11,6 +11,7 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\PhotoGallery.UI</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\app\interfaces\" />
+    <Folder Include="src\app\interceptor\" />
+    <Folder Include="src\app\services\" />
   </ItemGroup>
 </Project>

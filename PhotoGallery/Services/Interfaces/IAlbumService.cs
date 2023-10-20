@@ -2,15 +2,15 @@
 using PhotoGallery.Api.Models.Requests;
 using PhotoGallery.Api.Models.Responses;
 
-namespace PhotoGallery.Api.Host.Services
+namespace PhotoGallery.Api.Host.Services.Interfaces
 {
     public interface IAlbumService
     {
-        Task<PaginatedItemsResponse<AlbumDto>> GetPaginatedAlbumsAsync(int pageSize, int pageIndex);
+        Task<PaginatedItemsResponse<AlbumWithImageDto>> GetPaginatedAlbumsAsync(int pageSize, int pageIndex);
         Task<IEnumerable<AlbumWithImageDto>> GetUsersAlbumsWithFirstImageAsync(string jwtToken);
         Task AddAlbumAsync(AlbumDto addItem);
         Task DeleteAlbumAsync(AlbumDto deleteItem);
-        Task<PaginatedItemsResponse<ImageDto>> GetPaginatedImagesAsync(int pageSize, int pageIndex, AlbumDto album);
+        Task<PaginatedItemsResponse<ImageDto>> GetPaginatedImagesAsync(int pageSize, int pageIndex, int albumId);
         Task UpdateAlbumAsync(AlbumDto oldItem, AlbumDto newItem);
     }
 }

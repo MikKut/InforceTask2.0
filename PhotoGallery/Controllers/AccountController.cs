@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PhotoGallery.Api.Host.Services;
+using PhotoGallery.Api.Host.Services.Interfaces;
 using PhotoGallery.Api.Models.Entities;
 using PhotoGallery.Api.Models.Requests;
 using PhotoGallery.Api.Models.Responses;
@@ -27,7 +27,7 @@ namespace PhotoGallery.Api.Host.Controllers
         [AllowAnonymous]
         [ProducesResponseType(typeof(LoginResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
-        {
+            {
             var response = await _userService.LoginAsync(loginRequest);
             if (!response.Success)
             {

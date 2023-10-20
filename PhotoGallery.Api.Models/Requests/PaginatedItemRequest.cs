@@ -18,6 +18,6 @@ namespace PhotoGallery.Api.Models.Requests
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public int PageSize { get; set; }
         [Required]
-        public AlbumDto Album { get; set; }
+        public int AlbumId { get; set; }
     }
 }

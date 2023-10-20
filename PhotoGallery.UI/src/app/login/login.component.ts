@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Import the Router module
 import { environment } from '../../environments/environment';
-
+import { catchError, throwError } from 'rxjs';
 export interface LoginResponse {
   success: boolean;
   message: string;
@@ -20,11 +20,21 @@ export class LoginComponent {
   errorMessage: string = ''; // Initialize an error message variable
 
   constructor(private http: HttpClient, private router: Router) { }
-
+  handleError(error: any) {
+    this.router.navigate(['/error'], {
+      queryParams: { errorDetails: JSON.stringify(error) }
+    });
+  }
   login() {
     let loginPathUrl = environment.loginPath;
     // Send a POST request to your ASP.NET Core backend for authentication
     this.http.post<LoginResponse>(loginPathUrl, { email: this.username, password: this.password })
+      .pipe(
+        catchError(error => {
+          this.handleError(error);
+          return throwError(error);
+        })
+      )
       .subscribe(
         (response) => {
           if (response.success) {
@@ -34,15 +44,16 @@ export class LoginComponent {
               localStorage.setItem('token', response.token);
             }
             // Redirect to the ALBUMS TABLE PAGE
-            this.router.navigate(['/albums']);
           } else {
             // If login is not successful, display the error message
             this.errorMessage = response.message;
           }
+          this.router.navigate(['/albums']);
         },
         (error) => {
           // Handle login error, e.g., display a generic error message
           this.errorMessage = 'An error occurred during login. Please try again.';
+          this.handleError(error);
         }
     );
   }

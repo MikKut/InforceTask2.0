@@ -1,6 +1,7 @@
 ﻿using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PhotoGallery.Api.Host.Data;
+using PhotoGallery.Api.Host.Repositories.Interfaces;
 using PhotoGallery.Api.Models.DTO;
 using PhotoGallery.Api.Models.Entities;
 
@@ -105,7 +106,7 @@ namespace PhotoGallery.Api.Host.Repositories
 
         private async Task<Image> GetRelevantImageAsync(Image image)
         {
-            Image? lookedImage = await _dbContext.Images.SingleOrDefaultAsync(x => x.Extension == image.Extension && x.Description == image.Description);
+            Image? lookedImage = await _dbContext.Images.SingleOrDefaultAsync(x => x.ImageId == image.ImageId);
             if (lookedImage == null)
             {
                 _logger.LogWarning("Image not found: {Extension} - {Description}", image.Extension, image.Description);
@@ -129,7 +130,7 @@ namespace PhotoGallery.Api.Host.Repositories
 
         private async Task EnsureAlbumExistsAsync(Album album)
         {
-            Album? item = await _dbContext.Albums.SingleOrDefaultAsync(x => x.Title == album.Title && x.Description == album.Description);
+            Album? item = await _dbContext.Albums.SingleOrDefaultAsync(x => x.AlbumId == album.AlbumId);
             if (item == null)
             {
                 _logger.LogWarning("Album not found: {Title} - {Description}", album.Title, album.Description);

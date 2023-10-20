@@ -1,0 +1,9 @@
+<div class="error-page">
+  <h1>Error Occurred</h1>
+  <p>An error has occurred. Please try again later.</p>
+
+  <div *ngIf="errorDetails">
+    <h2>Error Details:</h2>
+    <pre>{{ errorDetails | json }}</pre>
+  </div>
+</div>

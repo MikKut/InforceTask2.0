@@ -161,3 +161,5 @@ E:\sharp\TestTask\PhotoGallery.Api.UnitTests\obj\Debug\net6.0\refint\PhotoGaller
 E:\sharp\TestTask\PhotoGallery.Api.UnitTests\obj\Debug\net6.0\PhotoGallery.Api.UnitTests.pdb
 E:\sharp\TestTask\PhotoGallery.Api.UnitTests\obj\Debug\net6.0\PhotoGallery.Api.UnitTests.genruntimeconfig.cache
 E:\sharp\TestTask\PhotoGallery.Api.UnitTests\obj\Debug\net6.0\ref\PhotoGallery.Api.UnitTests.dll
+E:\sharp\TestTask\PhotoGallery.Api.UnitTests\bin\Debug\net6.0\package-lock.json
+E:\sharp\TestTask\PhotoGallery.Api.UnitTests\bin\Debug\net6.0\package.json
