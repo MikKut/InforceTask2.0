@@ -1,0 +1,47 @@
+.container {
+  margin: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Define any additional styles for your table here */
+mat-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Define styles for table header cells here */
+.mat-header-cell {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Define styles for table rows and cells here */
+.mat-cell {
+  padding: 5px;
+  text-align: left;
+}
+
+/* Define styles for the cover image */
+img {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+/* Define styles for action buttons (e.g., Delete button) */
+button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 2px 2px;
+}
